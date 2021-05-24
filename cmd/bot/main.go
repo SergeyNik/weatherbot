@@ -3,11 +3,16 @@ package main
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
+	"weatherbot/pkg/config"
 	"weatherbot/pkg/telegram"
 )
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("Token")
+	cfg, err := config.Init()
+	if err != nil {
+		log.Fatal(err)
+	}
+	bot, err := tgbotapi.NewBotAPI(cfg.TelegramToken)
 	if err != nil {
 		log.Panic(err)
 	}
